@@ -1,0 +1,13 @@
+interface:
+  display_name: "tktk · 美区 TikTok 商品图文"
+  short_description: "购买转化优先的美区商品套图，首张按购买理由设计，生活页采用自然手机摄影，配英文文案和素材包"
+  default_prompt: "使用 $tktk，根据真实商品图制作五张 9:16 美区 TikTok 商品推广图文，以购买转化为主，按商品和买家选择首张人物或商品展示方式，清楚表达购买理由，后页补充依据并变化画面，生活场景靠近日常手机记录且保留商品可辨，提供英文文案、30字符以内产品名、相关标签、配乐方向与素材包。"
+  icon_small: "assets/icon.svg"
+  icon_large: "assets/icon.svg"
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
