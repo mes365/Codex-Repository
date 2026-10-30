@@ -1,0 +1,29 @@
+name: Build VideoNative Win11 x64
+on:
+  push:
+    paths:
+      - 'tools/video-native/**'
+      - '.github/workflows/build-video-native-win11.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S tools/video-native -B tools/video-native/build -G "Visual Studio 17 2022" -A x64
+      - name: Build
+        run: cmake --build tools/video-native/build --config Release --parallel
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force tools/video-native/dist | Out-Null
+          Copy-Item tools/video-native/build/Release/VideoNative.exe tools/video-native/dist/VideoNative.exe
+          (Get-FileHash tools/video-native/dist/VideoNative.exe -Algorithm SHA256).Hash | Out-File tools/video-native/dist/SHA256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VideoNative-Win11-x64
+          path: tools/video-native/dist/
+          retention-days: 7
