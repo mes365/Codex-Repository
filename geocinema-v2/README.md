@@ -23,3 +23,7 @@ The prototype downloads four Terrarium tiles and Three.js, builds an elevation m
 Requirements: Node.js 20+, Playwright Chromium, FFmpeg with libx264. From this directory run `npm install`, `npx playwright install chromium`, `npm run assets`, then `npm run render`. Output is `output/terrain-preview.mp4`. `npm run preview` renders a single still.
 
 Terrain tiles: [Mapzen/Tilezen elevation tiles](https://github.com/tilezen/joerd/blob/master/docs/formats.md), Terrarium format, z5 x23–24 y12–13. Consult the [terrain attribution guidance](https://github.com/tilezen/joerd/blob/master/docs/attribution.md) and underlying source licenses before publication. Three.js is MIT licensed.
+
+## Second prototype (in progress)
+
+The timeline now includes an Earth view, Tibetan terrain textured with NASA Blue Marble, and schematic monsoon lines. The 18-second output is still silent and is not the full film. The Earth image is NASA Blue Marble Next Generation, July 2004: https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/ . The land-only base map is artistically recolored over dark regions to suggest ocean; it must not be presented as measured ocean imagery. The terrain is zoom 5 and the texture is coarse. The flow lines are artistic illustrations, not atmospheric observations. Further work includes movement, correct ocean imagery, geographical validation, narration, science review, scene transitions, and comparison with the reference.
