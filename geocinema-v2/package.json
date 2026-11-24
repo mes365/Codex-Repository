@@ -1,0 +1,1 @@
+{"name":"geocinema-v2","version":"0.0.1","private":true,"description":"Experimental terrain render pipeline","dependencies":{"playwright":"1.49.1"},"scripts":{"assets":"node fetch-assets.cjs","preview":"node render.cjs --preview","render":"node render.cjs"}}

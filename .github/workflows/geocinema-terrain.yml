@@ -1,0 +1,37 @@
+name: GeoCinema terrain preview
+on:
+  push:
+    branches: [geocinema-v2]
+    paths:
+      - 'geocinema-v2/**'
+      - '.github/workflows/geocinema-terrain.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: geocinema-v2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-noto-cjk
+      - run: npm run assets
+      - run: npm run render
+      - name: Verify output
+        run: |
+          ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate,nb_frames -of json output/terrain-preview.mp4 | tee output/probe.json
+          node -e "const s=require('./output/probe.json').streams[0]; if(s.width!==1080||s.height!==1920||s.r_frame_rate!=='30/1'||Number(s.nb_frames)!==150) process.exit(1)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geocinema-terrain-preview
+          path: |
+            geocinema-v2/output/terrain-preview.mp4
+            geocinema-v2/output/probe.json
